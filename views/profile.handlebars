@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{upper_case name}}!</h2>
+  </div>
+</div>
+
+<div class="row mt-4">
+  {{!-- New post --}}
+  <div class="col-md-6 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Create a New Blog Post</h5>
+        <form class="form new-post-form">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="post-title-label">Post Title</span>
+              <input type="text" class="form-control" placeholder="Post title" aria-label="post-title" aria-describedby="post-title-label" id="post-title" maxlength="100">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="post-content-label">Content</span>
+              <textarea type="text" class="form-control" placeholder="Your amazing content here.." aria-label="post-content-label" aria-describedby="post-content-label" id="post-content" maxlength="254"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {{!-- List of created posts --}}
+  {{#if posts.length}}
+  <div id="postList" class="col-md-6 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Current Posts</h5>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="col-8">Post Title</th>
+                <th class="col-2">Edit</th>
+                <th class="col-2">Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+            {{#each posts as |post|}}
+            <tr class="post-list">
+              <td><a href="/post/{{post.id}}">{{post.title}}</a></td>
+              <td>
+                <button class="btn btn-sm btn-info text-white d-flex justify-content-center align-items-center update-post-btn" data-id="{{post.id}}">
+                  <span class="material-icons">edit</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-danger d-flex justify-content-center align-items-center delete-post-btn" data-id="{{post.id}}">
+                  <span class="material-icons">delete</span>
+                </button>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+{{!-- Blog post update modal --}}
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="update-post-title-label">Title</span>
+              <input type="text" class="form-control" placeholder="Post title" aria-label="update-post-title" aria-describedby="update-post-title-label" id="update-post-title" maxlength="100">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="update-post-content-label">Content</span>
+              <textarea type="text" class="form-control" placeholder="Your amazing content here.." aria-label="update-post-content-label" aria-describedby="update-post-content-label" id="update-post-content" maxlength="254"></textarea>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="updatePostBtn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/profile.js"></script>

@@ -1,0 +1,15 @@
+{{#each posts as |post| }}
+  <a href="/post/{{post.id}}" class="text-black text-decoration-none">
+    <div class="p-4 p-md-5 mb-4 text-black rounded bg-light">
+      <div class="col-md-8 px-0">
+        <h1 class="display-4">
+          {{post.title}}
+        </h1>
+
+         <p class="lead my-3">
+          {{make_substring post.content}}
+        </p>
+        <span class="text-muted m-0 p-0">{{post.user.name}} - {{format_date post.date_created}}</span>
+      </div>
+        </a>
+{{/each}}

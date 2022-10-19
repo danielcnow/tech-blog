@@ -1,0 +1,46 @@
+<div class="row text-center mb-4">
+  <div class="col">
+    <h2 class="mb-4">{{title}}</h2>
+    <p>{{content}}</p>
+    <p>Created by {{user.name}} on {{format_date date_created}}</p>
+  </div>
+</div>
+
+{{!-- List of comments --}}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    {{#each comments as |comment|}}
+    <div class="card mb-3 comment">
+      <div class="card-body">
+          <p>{{comment.content}}</p>
+      </div>
+      <div class="card-footer">
+        <span>- {{comment.user.name}} {{format_date comment.date_created}}</span>
+        {{!-- Only show the delete button to comment creator --}}
+        {{#if (user_match ../userId comment.user.id)}}
+        <button class="btn btn-sm btn-danger float-end delete-comment-btn" data-comment="{{comment.id}}" type="button">
+          Delete
+        </button>
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+
+  {{!-- Add comment --}}
+    {{#if logged_in}}
+    <div id="postId" data-post="{{id}}">
+      <form class="form new-comment-form">
+      <div class="text-center mb-1">
+        <textarea class="form-control" id="commentInput" rows="3" placeholder="Leave a comment on this post.."></textarea>
+      </div>
+      <div class="d-grid gap-2 mb-3">
+        <button class="btn btn-secondary" type="submit">Submit Comment</button>
+      </div>
+      </form>
+    </div>
+    {{/if}}
+
+  </div>
+</div>
+<script src="../js/comment.js"></script>
